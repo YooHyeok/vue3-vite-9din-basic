@@ -21,6 +21,7 @@ export default {
    */
   beforeCreate() {
     console.log("LifeCycle is beforeCrete", this.count) //  컴포넌트가 생성되기 전 이므로 undefined 출력
+    // this.test(); //[ERROR] - unHandled: 동작 시점에 컴포넌트가 생성되지 않았기 때문에 Vue가 methods와 관련된 어떤것들도 생성되지 않았다고 판단.
   },
   /**
    * 컴포넌트가 생성된 직후 접근할 수 있는 라이프사이클 훅
@@ -28,6 +29,7 @@ export default {
    */
   created() {
     console.log("LifeCycle is creted", this.count) // 컴포넌트가 생성된 후 초기화 진행되므로 0 출력
+    this.test(); //[정상 호출] - 컴포넌트가 생성되는 시점에 초기화 과정을 거치기 때문에 컴포넌트가 생성된 후에는 data, methods를 Vue가 이미 로드한 상태.
   },
 
 
@@ -46,7 +48,14 @@ export default {
    */
   mounted() {
     console.log("LifeCycle is mounted", document.querySelector('h1')) // 렌더링 직후 이므로 h1 태그 출력
-  }
+  },
+
+  methods: {
+    test() {
+      console.log("함수 호출!")
+    }
+  },
+
 };
 </script>
 
