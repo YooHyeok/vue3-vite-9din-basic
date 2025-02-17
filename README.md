@@ -40,12 +40,44 @@ Vue.js 확장명은 .vue이다.
 해당 파일 안에서 HTML, CSS, JS가 관리된다.  
 하나의 컴포넌트 안에서 이 모든게 관리가 된다고 하여 `Single File Component`라고 부른다.  
 
-- 경로/컴포넌트명.vue
-  ```vue
-  ```
+</details>
+<br>
+
+# Vue.js 개발 스타일
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+Vue.js 개발 스타일에는 `Options API`와 `Composition API` 두 가지 방식이 있다.
+
+### 1. Options API
+- data, methods, mounted 같은 객체를 사용하여 컴포넌트 로직을 정의하는 개발 스타일이다.  
+- 옵션으로 정의된 속성은 컴포넌트 인스턴스를 가리키는 함수 내부의 this에 노출된다.  
+### 2. Composition API
+- import를 통해 가져온 Vue.js 내장 API 함수를 사용하여 컴포넌트 로직을 정의하는 개발 스타일이다.
+- SFC에서 컴포지션 API는 일반적으로 `<script setup>` 과 함께 사용한다.
+  (setup 속성은 컴파일시 의도된 대로 올바르게 동작할 수 있게 코드를 변환하도록 하는 힌트이다.)
+
+### Options API vs Composition API
+- 어떤 개발스타일이 더 좋고 나쁘고는 없으며 본인 취향에 맞게 개발하면 된다.  
+- 협업에 있어 옵션 API의 코드가 가독성이 좋을 경우도 있기 때문에 맡은 프로젝트에 따라 선택하면 된다.
+
+
+## Options API 정리
+|   daat   |    methods   |   LifeCycle   |
+|----------|--------------|---------------|
+|Data 메소드는 해당 컴포넌트에서 사용될 state <br> 즉 데이터를 관리해주는 곳이다.|Mehods는 속성값을 변경하고 업데이트 할 수 있는 함수이며, <br> 템플릿 내에서 이벤트 핸들러로 바인딩이 가능하다.|생명주기 훅(LifeCycle hooks)은 컴포넌트 생명주기의 여러단계에서 호출된다.|  
+|data에서 반환된 속성들은 반응적인 상태가 되어 this에 노출된다.|methods에서 반환된 함수들은 data에서 반환된 속성과 마찬가지로 this에 노출된다.||  
+
+## Composition API 정리
+|   ref, reactive   |   methods   |   LifeCycle   |
+|-------------------|-------------|---------------|
+|컴포지션 API에서는 반응성 있는 데이터를 만들어 줄 경우, <br>ref 혹은 reative 키워드를 통하여 변수를 선언해준다. |컴포지션 API에서는 methos라는 객체를 선언할 필요가 없기 때문에 함수를 그냥 만들어 사용하면 된다.|생명주기 훅(LifeCycle hooks)은 컴포넌트 생명주기의 여러단계에서 호출된다.|  
+|`const count = ref(0)`<br>┗ 초기값을 0으로 설정<br>`const obj = reactive({`<br>`name: 'test', age: 30`<br>`})`|`function increment() {count.value++}`<br>┗ ref로 참조한 데이터에 접근할 경우에는 `.value`로 접근한다.||  
 
 </details>
 <br>
+
 
 # Vite기반 Vue3 프로젝트 세팅
 <details>
