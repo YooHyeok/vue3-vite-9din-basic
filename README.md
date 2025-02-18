@@ -147,7 +147,7 @@ Vue.js 개발 스타일에는 `Options API`와 `Composition API` 두 가지 방�
 </details>
 <br>
 
-# LifeCycle 이론
+# LifeCycle 이론 01
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -183,12 +183,54 @@ Vue.JS라는 자바스크립트 프레임워크를 통해 유사한 성질. 즉,
 그리고 만들어진 붕어빵들은 전부 객체들이다.  
 하지만 같은 기계에서 만들어졌어도 서로 다른 밀가루양과 팥을 가지고 있다.  
 실제로 만들어진 붕어빵인 이것이 인스턴스이며, 이 빵을 구븐 행위가 인스턴스화 이다.
+</details>
+<br>
+
+# LifeCycle 이론 02
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+### 1. Created  
+  - 컴포넌트가 생성된 직후에 접근할 수 있는 라이프사이클 훅이다.
+  - beforeCreated 라이프사이클 훅에선 컴포넌트가 생성되기 전에 동작하는 기능이기 때문에 data, methods에 선언한 데이터, 함수에 접근할 수 없다.
+### 2. Mounted  
+  - 컴포넌트, 템플릿, 렌더링된 DOM에 접근할 수 있고, DOM을 수정하기 위해 사용된다.  
+  - template 부분의 HTML Element가 모두 렌더링 된 후에 접근이 가능하다.
+
+![alt text](image.png)
+위 이미지를 보면 Vue.JS에서 각각의 컴포넌트를 관리하고 호출해서 렌더링할 때 위와같은 도표로 실행된다.  
+최초로 컴포넌트를 만들었고 해당 컴포넌트를 호출하여 사용한다고 가정해본다.  
+그러면 그 컴포넌트는 렌더러에게 "이 컴포넌트를 처리해줘!" 라고 요청을 할것이다.  
+그 다음 컴포넌트를 처리해달라고 요청을 받았으면 해당컴포넌트를 불러올것이다.  
+그리고 생성을 해야 그 컴포넌트를 사용할 수 있다.  
+이때 호출한 컴포넌트를 생성하기 전에 접근할 수 있는 부분이 바로 `beforeCreated(Options)`/`setup(Composition)` 라이프사이클 훅이다.  
+그래서 컴포넌트가 생성되기 전에 어떤 작업을 해주고 싶을 때 해당 라이프사이클 훅을 사용하면 된다.  
+실무에서는 많이 사용되지는 않지만 이러한 개념을 알아 둔다면 혹여나 필요한 상황에서 용이하게 사용할 수 있다.  
+
+Options API의 경우 초기화 과정을 거친다. (Composition API도 동일)  
+그리고 컴포넌트를 생성한다.  
+그래서 초기화하는 시점에 Options API 같은 경우 data, methods와 같은 부분에 선언했던 변수나 함수 등  
+활용하기 위해 선언한 데이터들을 this 키워드로 접근할 수 있게끔 세팅이 된다.  
+이후 created 훅이 동작을 하며, 어원 그대로 생성된 후/생성된 직후 컴포넌트 내에 선언한 데이터에 접근(this.키워드로)할 수 있다.  
 
 
+Composition API의 경우 `beforeCreated`, `created` 라이프사이클 훅을 사용하지 않고 setup이라는 키워드를 사용함으로써 그 기능을 대체하고 있다.
+(script 태그 속성으로 사용하거나 setup(){} 함수를 정의하여 함수 블록 내부에서 코드를 작성하여 사용하게 될 경우 해당 기능을 대체한다.)  
 
-- 경로/컴포넌트명.vue
-  ```vue
-  ```
+컴포넌트가 생성이 되었으면, 템플릿 부분을 컴파일 해야 선언한 데이터를 활용하여 UI를 그려낼 수 있을것이다.  
+이때 컴파일된 템플릿이 없으면 템플릿을 컴파일하면 되고 이미 있다면 초기 렌더링 단계로 진입을 하면 된다.
+
+초기 렌더링: DOM 노드 생성 및 삽입 즉, Template 키워드 안에 있는 HTML구조 뼈대를 웹 상에 그려내기 전에 컨트롤 할 필요가 있을 경우 `Options API는 beforeMounted` 라이프사이클 훅을. `Composition API는 onBeforeMounted` 라이프사이클 훅을 사용한다.  
+또한 템플릿 부분의 HTML Element가 모두 렌더링 된 후 접근할 땐 `OptionsAPI는 Mounted`, `Composition API는 onMounted` 라이프사이클 훅을 통해 접근이 가능하다.  
+
+마운트가 된 후 데이터가 변경되어 새롭게 UI를 그려내야할 경우 `Options API는 updateed` 라이프사이클 훅이. `Composition API는 onUpdateed` 라이프사이클 훅이 동작하고 마찬가지로 데이터가 변경되고 새롭게 리렌더링 및 패치를 하기 전에 컨트롤 해줘야할 부분이 있다면 `Options API는 beforeUpdateed` 라이프사이클 훅을. `Composition API는 onBeforeUpdateed` 라이프사이클 훅을 사용한다. 
+
+마운트가 해제된 후 즉, 인스턴스를 제거하기 전 접근할 수있는 라이프사이클 훅은 `Options API는 beforeUnmounted` 라이프사이클 훅이. `Composition API는 onBeforeUnmounted`
+
+인스턴스가 제거된 후 라이프사이클 훅은 `Options API는 unmounted` 라이프사이클 훅이. `Composition API는 onUnmounted` 라이프사이클 훅이 동작하게 된다.  
+
+
 
 </details>
 <br>
