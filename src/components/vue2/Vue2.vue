@@ -1,13 +1,13 @@
 <template>
-  <Vue2/>
+  <LifeCycle/>
 </template>
 
 <script>
-import Vue2 from './components/vue2/Vue2.vue';
+import LifeCycle from './LifeCycle.vue';
 export default {
-  name: 'App',
+  name: 'Vue2',
   components: {
-    Vue2
+    LifeCycle
   }
   
 }
