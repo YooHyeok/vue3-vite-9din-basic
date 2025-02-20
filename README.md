@@ -297,7 +297,89 @@ state 데이터와 관련이 있다.
   <style scoped></style>
   ```
 
+## beforeMount() , mounted()
 
+UI, HTML등 DOM 과 관련이 있다.
+
+1. beforeMount: 컴파일 된 템플릿이 있건 없건 초기렌더링이 진행되기 직전 동작하는 라이프 사이클 훅
+2. mounted: 컴파일 된 템플릿이 있건 없건 초기 렌더링이 진행된 직후 동작하는 라이프 사이클 훅
+
+
+ template 영역의 HTML Element가 렌더링 및 mount 된 직후 mounted훅을 접근할 수 있는 반면, 그 전에는 어떤 UI도 컨트롤 할 수 없다.
+
+<br>
+
+
+### 컴파일 된 템플릿이 있건 없건 mounted 훅이 동작한다?
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+mounted는 렌더링 된 직후 동작한다는 말에서 렌더링이라면 이미 화면에 그려진 상태일 것이고 컴파일 과정이 없는데 어떻게 렌더링이 될수 있을까?  
+렌더러는 렌더링을 해주는 역할이지 렌더러를 호출하자마자 그 즉시 렌더링이 되는것은 아니지 않나?  
+라는 의문을 갖게 된다.  
+
+렌더링은 렌더 함수가 있어야 가능하며, 컴파일은 렌더 함수를 만드는 과정일 뿐이다.
+컴파일이 없더라도, 렌더 함수가 직접 제공되면 렌더링이 가능하다.
+순수 javascript파일에 Vue인스턴스를 직접 생성할 경우 render함수를 호출할 수 있는데, 이 render 함수가 렌더러이다.
+이렇게 직접 호출할 경우 이해될것이다.  
+코드 예시를 작성한다.
+
+```vue
+new Vue({
+  reunder(h) {
+    return h('h1', this.message) // 렌더 함수 직접 제공
+  }
+}).$mount('#app')
+```
+
+위 코드만 봐도 render가 먼저 실행된 후 뷰 인스턴스에 메소드 체이닝으로 mount 함수를 호출하는 것을 확인할 수 있다.  
+렌더러를 통해 렌더링이 되고난 다음 마운트가 되는것이 정확한 순서이다.
+
+강의에서는 mounted를 렌더링 된 직후라고 설명했지만 렌더링 후 mount까지 완료된 후에 mounted 라이프사이클 훅이 호출되는게 더 정확한 정의이다.  
+
+덧붙혀서 .vue 확장자 파일을 사용할 경우에는 빌드(컴파일) 시점에 `<template>` 영역이 render 함수로 변환된다.  
+render함수가 생성되므로 실행 시점에는 컴파일 과정이 필요가 없다.  
+즉, 컴파일이 필요 없다는 것은 실행 시점에서의 이야기이며, 빌드 시점에서는 반드시 컴파일이 필요하다.
+</details>
+<br>
+<br>
+
+
+
+### 예제2) 
+- ./src/App.vue
+  ```vue
+  <template>
+    <h1>Vue.js 라이프사이클 테스트</h1>
+  </template>
+
+  <script>
+  export default {
+    name: 'App',
+
+    /* === Dom과 관련 === */
+    
+    /**
+     * 컴파일된 template 유무와 관계 없이 초기 렌더링을 거치기 전에 동작하는 라이프사이클 훅
+     * DOM이 렌더링 되기 전 이므로 template 영역의 HTML Element에 접근 불가능하다.
+     */
+    beforeMount() {
+      console.log("LifeCycle is beforeMount", document.querySelector('h1')) // 렌더링 전 이므로 null 출력
+    },
+    /**
+     * 컴포넌트, 템플릿, 렌더링된 DOM에 접근할 수 있고 DOM을 수정하기 위해 사용된다.
+     * template 영역의 HTML Element가 모두 렌더링 된 후 접근이 가능하다.
+     */
+    mounted() {
+      console.log("LifeCycle is mounted", document.querySelector('h1')) // 렌더링 직후 이므로 h1 태그 출력
+    },
+
+  };
+  </script>
+
+  <style scoped></style>
+  ```
 
 </details>
 <br>
