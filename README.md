@@ -230,6 +230,73 @@ Composition API의 경우 `beforeCreated`, `created` 라이프사이클 훅을 �
 
 인스턴스가 제거된 후 라이프사이클 훅은 `Options API는 unmounted` 라이프사이클 훅이. `Composition API는 onUnmounted` 라이프사이클 훅이 동작하게 된다.  
 
+</details>
+<br>
+
+# LifeCycle 실습 예제
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+
+## beforeCreate() , created()
+
+state 데이터와 관련이 있다.
+
+1. 렌더러가 컴포넌트를 처리해야한다. 라는 명령을 받는다.  
+2. beforeCreate: 컴포넌트가 생성되기 전 특정 로직을 처리해주거나 필요에 의해 활용이 필요할 때 동작시킬 라이프사이클 훅 이다.  
+초기화 되기 전 이기 때문에 data나 methods에 선언한 변수와 함수에 접근이 불가능하다.  
+3. 컴포넌트가 생성될 때, Options API 기준으로 초기화 과정을 한번 거친다.  
+4. 컴포넌트가 생성된 직후에 created 라이프사이클이 동작을 한다.  
+  이때 데이터와 methods등 선언한 변수와 함수에 접근이 가능하다.
+
+### 예제1) 
+- ./src/App.vue
+  ```vue
+  <template>
+    <div>{{ count }}</div>
+    <h1>Vue.js 라이프사이클 테스트</h1>
+  </template>
+
+  <script>
+  export default {
+    name: 'App',
+    data() {
+      return {
+        count: 0
+      };
+    },
+
+    /* === 데이터와 관련 === */
+
+    /**
+     * 컴포넌트가 생성되기 전에 동작하는 라이프사이클 훅
+     * data, methods에 선언한 데이터, 함수에 접근할 수 없다.
+     */
+    beforeCreate() {
+      console.log("LifeCycle is beforeCrete", this.count) //  컴포넌트가 생성되기 전 이므로 undefined 출력
+      // this.test(); //[ERROR] - unHandled: 동작 시점에 컴포넌트가 생성되지 않았기 때문에 Vue가 methods와 관련된 어떤것들도 생성되지 않았다고 판단.
+    },
+    /**
+     * 컴포넌트가 생성된 직후 접근할 수 있는 라이프사이클 훅
+     * data, methods에 선언한 데이터, 함수에 접근 가능하다.
+     */
+    created() {
+      console.log("LifeCycle is creted", this.count) // 컴포넌트가 생성된 후 초기화 진행되므로 0 출력
+      this.test(); //[정상 호출] - 컴포넌트가 생성되는 시점에 초기화 과정을 거치기 때문에 컴포넌트가 생성된 후에는 data, methods를 Vue가 이미 로드한 상태.
+    },
+
+    methods: {
+      test() {
+        console.log("함수 호출!")
+      }
+    },
+
+  };
+  </script>
+  <style scoped></style>
+  ```
+
 
 
 </details>
@@ -246,6 +313,7 @@ Composition API의 경우 `beforeCreated`, `created` 라이프사이클 훅을 �
 
 </details>
 <br>
+
 
 # 템플릿2
 <details>
