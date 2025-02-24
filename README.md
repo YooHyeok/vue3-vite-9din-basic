@@ -477,6 +477,130 @@ UI와 관련된 디렉티브로는 선언적 렌더링, 클래스와 스타일 �
 </details>
 <br>
 
+# User Interface 예제1
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+## 텍스트 보간법을 활용한 선언적 렌더링
+- src/components/vue2/VHtml.vue
+  ```vue
+  <template>
+    <div>{{ rawHtml }}</div> 
+  </template>
+  <script>
+  export default {
+    name: 'VHtml',
+    data() {
+      return {
+        rawHtml: '이것은 텍스트 입니다.'
+      }
+    }
+  }
+  </script>
+  ```
+
+## V-HTML을 활용한 선언적 렌더링
+- src/components/vue2/VHtml.vue
+  ```vue
+  <template>
+    <h1 v-html="rawHtml2"></h1>
+  </template>
+  <script>
+  export default {
+    name: 'VHtml',
+    data() {
+      return {
+        rawHtml2: '<span style="color: red;">이것은 빨간색 텍스트 입니다.</span>'
+      }
+    }
+  }
+  </script>
+  ```
+
+## 클래스 바인딩 선언적 렌더링
+class 바인딩시 중괄호안에 key:value 형태로 구성한다
+key에 style태그에 정의한 class의 이름을 정의하고, value에는 true/false 값을 갖는 boolean타입 변수를 바인딩한다.  
+바인딩 한 해당 변수가 true일 경우 key에 적용한 class가 활성화된다.  
+객체 뿐만 아니라 배열 문법도 존재한다.  
+자세한 사용법은 Vue Documents에서 확인할 수 있다.  
+[documents](https://v2.ko.vuejs.org/v2/guide/class-and-style.html)  
+
+아래의 예제는 버튼 클릭시 active 클래스가 적용되어 글씨가 초록색으로 변경되는 코드이다.
+
+- src/components/vue2/BindClass.vue
+  ```vue
+  <template>
+    <h1>[클래스 바인딩 테스트]</h1>
+    <h2 v-bind:class="{active: isActive}">isActive: {{ isActive }}</h2>
+    <h2 :class="{active: isActive}">isActive: {{ isActive }}</h2>
+    <button @click="change">버튼</button>
+  </template>
+  <script>
+  export default {
+    name: 'VHtml',
+    data() {
+      return {
+        isActive: false
+      }
+    },
+    methods: {
+      change() {
+        this.isActive = !this.isActive;
+      }
+    }
+  }
+  </script>
+  <style scoped>
+  h2.active {
+    color: green;
+  }
+  </style>
+  ```
+
+## 스타일 바인딩 선언적 렌더링
+style 태그에 일반적으로 바인딩하는 경우 쌍따옴표 안에 일반 HTML에 문자열로 바인딩한다.  
+VueJS에서는 key:value 객체 중괄호 형태로 작성한다.  
+key에는 style 속성중 하나를 value에는 해당 속성에 적용할 값을 작성한다.  
+key와 value 모두 변수로 구성하여 동적으로 제어할 수 있다.  
+스타일 바인딩의 경우에도 객체 뿐만 아니라 배열 문법도 존재한다.  
+자세한 사용법은 Vue Documents에서 확인할 수 있다.  
+[documents](https://v2.ko.vuejs.org/v2/guide/class-and-style.html)  
+
+- src/components/vue2/BindStyle.vue
+  ```vue
+  <template>
+    <h1>[스타일 바인딩 테스트]</h1>
+    <h3 style="color: red; font-size: 24px">인라인스타일 바인딩</h3>
+    <h3 :style="{color: '#888888', fontSize: 48 + 'px'}">Vue.JS스타일 바인딩</h3>
+    <h3 :style="{color: fontColor, fontSize: fontSize + 'px'}">Vue.JS스타일 바인딩 - 변수활용</h3>
+  </template>
+  <script>
+  export default {
+    name: 'VHtml',
+    data() {
+      return {
+        fontColor: '#999999',
+        fontSize: 36
+      }
+    },
+    methods: {
+      change() {
+        this.isActive = !this.isActive;
+      }
+    }
+  }
+  </script>
+  <style scoped>
+  h2.active {
+    color: green;
+  }
+  </style>
+  ```
+
+</details>
+<br>
+
 # 템플릿1
 <details>
 <summary>펼치기/접기</summary>
@@ -488,7 +612,6 @@ UI와 관련된 디렉티브로는 선언적 렌더링, 클래스와 스타일 �
 
 </details>
 <br>
-
 
 # 템플릿2
 <details>
