@@ -384,6 +384,99 @@ render함수가 생성되므로 실행 시점에는 컴파일 과정이 필요�
 </details>
 <br>
 
+# User Interface
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+UserInterface UI를 다루는 Vue.JS 문법이 존재한다.  
+UI와 밀접한 V-directive, data와 밀접한 v-directive 두 분류로 나뉜다.  
+UI와 관련된 디렉티브로는 선언적 렌더링, 클래스와 스타일 바인딩, 조건부 렌더링, 리스트 렌더링이 있다.  
+
+
+###  1. 선언적 렌더링  
+  선언적 렌더링은 Vue.JS 데이터 바인딩의 가장 기본이 되는 것이다.  
+  데이터 바인딩의 가장 기본적인 형태는 이중 중괄호 {{ }} 를 사용한 `텍스트 보간법` 이다.  
+  이중 중괄호는 데이터를 HTML이 아닌 일반 텍스트로 해석한다.  
+  실제 HTML을 출력하려면 `v-html 디렉티브`를 사용해야 한다.  
+
+###  2. 클래스와 스타일 바인딩  
+   - **2_1) 클래스 바인딩**  
+       HTML Element 코드에 보통 class와 id를 할당하여 고유한 값을 부여한다.  
+       값을 통해 css속성을 주곤 한다.  
+       이때, Vue.js 클래스는 임의의 데이터 값이 true 혹은 false 일 때 클래스가 추가되어 새로운 CSS속성을 부여 혹은 제거 할 수 있게끔 활용할 수 있도록 제공하는 기능이다.  
+       HTML Class 바인딩같은 경우 바인딩하기 위해 v-bind:class 혹은 축약형으로 :class 형태의 문법을 통해 클래스를 추가할 수 있다.  
+
+       ```vue
+       <div :class="{ active: isActive }"></div>
+       ```
+       위 예시코드를 보면 :class에 active가 isActive로 세팅이 되어있다.  
+       이때 isActive는 data부분 즉, state 영역에 선언한 임의의 변수이며 이 변수는 truthiness 즉, true와 false 값을 가진다.  
+       따라서 true일 때는 클래스 속성에 할당된 active라는 클래스가 추가되어 해당 엘리먼트에 active 효과를 줄 수 있는 것이다.  
+
+
+   - **2_1) 스타일 바인딩**  
+       HTML 태그에서 인라인 스타일 바인딩을 할 경우에는 기존의 HTML 파일에서 아래와 같이 코드를 작성했다.
+
+       ```html
+       <h1 style="color:green; text-decoration:underline"></h1>
+       ```
+       말 그대로 인라인 스타일 바인딩이었다.  
+       그러나 Vue.JS에서는 v-bind 디렉티브를 활용하여 클래스 바인딩과 동일하게 객체로 바인딩한다.  
+       다만 차이점이 있다면, 스타일 바인딩에서는 해당 프로퍼티 속성은 카멜케이스로 작성한다는 점을 유의하면 된다.  
+       ```vue
+       <h1 style="{ color:activeColor, fontSize: fontSize + 'px' }"></h1>
+       ```
+
+### 3. 조건부 렌더링
+  조건부 렌더링이란 말 그대로 특정 조건에 띠라 다른 결과물을 렌더링하는 것을 의미한다.  
+  Vue.JS에서는 조건부 렌더링을 할 수 있는 방법이 크게 2가지로 나뉘게 된다.  
+  1. v-if/v-else-if/v-else  
+  2. v-show  
+
+  v-if 디렉티브는 조건부로 블록을 렌더링하는 데 사용된다.  
+  블록은 디렉티브 표현식이 truth 값을 반환하는 경우에만 렌더링 된다.  
+
+  v-show 디렉티브는 v-if와 사용법이 크게 다르지 않다.  
+  대체로 동일하며 다만, v-if와 차이점은 v-show가 있는 엘리먼트는 항상 렌더링 되어 DOM에 남아있다는 것이다.  
+  v-show는 엘리먼트의 display CSS 속성만 전환이 된다.  
+
+  일반적으로 v-if는 전환 비용이 더 높고, v-show는 초기 렌더링 비용이 더 높다.  
+  따라서 매우 자주 전환해야 하는 경우에는 v-show를 실행중에 조건이 변경되지 않을 경우에는 v-if를 사용하는 것이 좋다.
+       
+### 4. 리스트 렌더링
+  리스트 렌더링이란 배열 데이터를 기반으로 동일한 구조의 UI를 반복호출하는 기능을 말한다.  
+  리스트 렌더링은 v-for 디렉티브를 사용한다.  
+  - v-for 디렉티브를 사용하여 배열을 리스트로 렌더링할 수 있다.  
+  - v-for 디렉티브는 item in items 형식의 특별한 문법이 필요하다.  
+    (itemL 배열 내 반복되는 엘리먼트의 별칭 / items: 선언한 배열 데이터)  
+  - v-for를 객체의 속성을 반복하는 데 사용 가능하다.  
+  - 순회순서: 해당 객체를 Object.keys()를 호출한 결과에 기반
+
+  여기서 Object.keys()를 호출한 결과에 기반한다는것은 아래의 형태와 같다.
+  ```
+  <template>
+    <p v-for="(value, key) in user" :key="key">
+      {{key}}: {{value}}
+    </p>
+  </template>
+  <script>
+  export default {
+    data() {
+      return user: {name: "홍길동", age: 30, city: "서울"}
+    }
+  }
+  </script>
+  ```
+  배열과는 다르게 key와 value를 순회한다는 것이다.
+
+- 경로/컴포넌트명.vue
+  ```vue
+  ```
+
+</details>
+<br>
+
 # 템플릿1
 <details>
 <summary>펼치기/접기</summary>
