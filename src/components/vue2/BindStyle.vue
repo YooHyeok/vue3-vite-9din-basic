@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-  name: 'VHtml',
+  name: 'BindStyle',
   data() {
     return {
       fontColor: '#999999',

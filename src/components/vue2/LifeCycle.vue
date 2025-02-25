@@ -5,8 +5,7 @@
 
 <script>
 export default {
-  name: 'App',
-
+  name: 'LifeCycle',
   data() {
     return {
       count: 0

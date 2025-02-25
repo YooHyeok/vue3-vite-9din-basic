@@ -11,6 +11,7 @@
 </template>
 <script>
 export default {
+  name: 'VShow',
   data() {
     return {
       isVisable: true,

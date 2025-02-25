@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-  name: 'VHtml',
+  name: 'BindClass',
   data() {
     return {
       isActive: false
