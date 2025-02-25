@@ -6,6 +6,7 @@
   <VIf/>
   <VShow/>
   <VForArr/>
+  <VForObj/>
 </template>
 
 <script>
@@ -16,6 +17,7 @@ import BindStyle from './BindStyle.vue';
 import VIf from './VIf.vue';
 import VShow from './VShow.vue';
 import VForArr from './VForArr.vue';
+import VForObj from './VForObj.vue';
 export default {
   name: 'Vue2',
   components: {
@@ -25,7 +27,8 @@ export default {
     BindStyle,
     VIf,
     VShow,
-    VForArr
+    VForArr,
+    VForObj
   }
   
 }
