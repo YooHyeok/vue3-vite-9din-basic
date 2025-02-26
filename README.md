@@ -601,6 +601,224 @@ key와 value 모두 변수로 구성하여 동적으로 제어할 수 있다.
 </details>
 <br>
 
+# User Interface 예제2
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+## v-if / v-else-if / v-else
+v-if 디렉티브는 truthy한 값에 의해 조건부 렌더링이 적용된다.  
+v-if 디렉티브 값으로 truthy한 값 타입의 변수 혹은 논리 식을 적용한다.  
+조건이 true일 때 활성화 되는 것이지, 변수가 true일 때 활성화 되는것은 아니다.
+
+- src/components/vue2/VIf.vue
+  ```vue
+  <template>
+    <div>Vue.JS v-if directive
+      <p>count {{ count }}</p>
+      <div class="red" v-if="isVisable"></div>
+      <div class="blue" v-if="isVisable == true"></div>
+      <div class="black" v-else></div>
+
+      <!-- v-if에 담긴 조건이 true일 때 활성화 되는것이지, 변수가 true일 때 활성화가 되는것은 아니다. -->
+
+      <div class="pupple" v-if="count > 1"></div> <!-- 1보다 크면 보라색, 1보다 작거나 같으면 노란색 -->
+      <div class="yellow" v-else></div>
+      <button @click="count++">증가</button>
+      <button @click="count--">감소</button>
+    </div>
+  </template>
+  <script>
+  export default {
+    name: 'vIf',
+    data() {
+      return {
+        isVisable: true,
+        count: 0,
+      }
+    }
+  }
+  </script>
+  <style scoped>
+  .red {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+  }
+  .blue {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+  }
+  .black {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+  }
+  .pupple {
+    width: 100px;
+    height: 100px;
+    background-color: blueviolet;
+  }
+  .yellow {
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+  }
+  </style>
+  ```
+
+## v-if와 v-show
+v-show를 적용할 경우 비활성 상태일 때 `display:none` 값에 대한 `style` 속성이 추가/제거 되는 형태로 적용된다.  
+v-show는 항상 렌더링 되며 display css 속성으로 전환되기 때문에 초기 렌더링 비용이 높은 반면 전환 비용은 낮다.  
+매우 자주 전환될 경우 사용한다.   
+
+v-if를 적용할 경우 비활성 상태일 때 `<!-- v-if -->` 라는 주석이 해당 엘리먼트를 대신하여 생성된다.
+v-if는 truthy한 값에서만 렌더링 되며 전환비용이 높은 반면 초기 렌더링 비용은 낮다.  
+실행중인 조건이 변경되지 않는 경우 사용한다.
+- src/components/vue2/VShow.vue
+  ```vue
+  <template>
+    <div>Vue.JS v-show directive
+      <p>count {{ count }}</p>
+      <div class="red" v-show="isVisable"></div> <!-- [비활성] style="display: none;" 적용. -->
+      <div class="blue" v-show="!isVisable"></div> <!-- [활성] -->
+      <div class="black" v-if="isVisable"></div> <!-- [비활성] 브라우저 요소에 v-if 라는 주석 생성 -->
+    </div>
+  </template>
+  <script>
+  export default {
+    name: 'VShow',
+    data() {
+      return {
+        isVisable: false,
+        count: 0,
+      }
+    }
+  }
+  </script>
+  <style scoped>
+  .red {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+  }
+  .blue {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+  }
+  .black {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+  }
+  .pupple {
+    width: 100px;
+    height: 100px;
+    background-color: blueviolet;
+  }
+  .yellow {
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+  }
+  </style>
+  ```
+
+## v-for
+
+### Array 
+배열 인덱스를 통해 일반적으로 접근할 경우 아래와 같이 일일이 수동으로 접근해야한다.  
+  ```vue
+  <template>
+    <div>
+      <li>{{ sampleArray[0] }}</li>
+      <li>{{ sampleArray[1] }}</li>
+      <li>{{ sampleArray[2] }}</li>
+      <li>{{ sampleArray[3] }}</li>
+    </div>
+  </template>
+  <script>
+  export default {
+    name: 'VForArr',
+    data() {
+      return {
+        sampleArray: ['a', 'b', 'c', 'd']
+      }
+    }
+  }
+  </script>
+  ```
+
+v-for 디렉티브를 사용할 경우 자바스크립트에서 배열 혹은 객체를 entries로 변환하여 for in문 형태 혹은 for of문 형태로 사용하는것과 동일하다.  
+
+`for(const [item, index] of ArrayA.entries())`  
+`for(const [key, value] in ObjectA.entries())`  
+위와 같이 Object를 순회하는 in과 배열을 순회하는 of 모두 제공된다.  
+
+단, v-for에서는 객체일 경우 key와 value의 순서가 달라지며, 배열의 경우 in, of 모두 다 아이템, 인덱스를 지원한다.  
+- src/components/vue2/VForArr.vue
+  ```vue
+  <template>
+    <div>
+      <div>Vue.JS v-for directive</div>
+      <li v-for="(item, idx) in sampleArray" :key="idx">{{ item }}</li>
+    </div>
+  </template>
+  <script>
+  export default {
+    name: 'VForArr',
+    data() {
+      return {
+        sampleArray: ['a', 'b', 'c', 'd']
+      }
+    }
+  }
+  </script>
+  ```
+### Object 
+Object의 경우 앞서 설명한것처럼 key와 value에 접근할 수 있다.
+- src/components/vue2/v-forObj.vue
+  ```vue
+  <template>
+    <div>
+      <div>Vue.JS v-for directive</div> 
+      <li v-for="(item, idx) in objectArray" :key="idx">
+        <span v-for="(value, key) in item" :key="key" > {{ key }} : {{ value }}</span>
+      </li>
+    </div>
+  </template>
+  <script>
+  export default {
+    name: 'VForObj',
+    data() {
+      return {
+        objectArray: [
+          {id: 0, name: 'John'},
+          {id: 1, name: 'Kim'},
+          {id: 2, name: 'Lee'},
+          {id: 3, name: 'Park'}
+        ]
+      }
+    }
+  }
+  </script>
+  ```
+
+### key 속성의 중요성과 index 이슈
+
+[▶ 래퍼런스](https://vueschool.io/articles/vuejs-tutorials/tips-and-gotchas-for-using-key-with-v-for-in-vue-js-3/)
+
+배열이 단순히 뒤에서 추가되는 경우라면 index값도 그대로 증가하기 때문에 문제가 없다.
+그러나 만약 배열에 push 후 특정 조건을 기준으로 정렬하여 다시 해당 state에 저장한다고 가정해보자.  
+베열에 push하고 난다음에 리랜더링이 일어나는데, 리랜더링이 일어나기 직전 찰나의 순간에 데이터를 새롭게 조회해서 값을 다시 갈아 끼우는 경우. 이 경우 문제가 발생한다.  
+즉, 정렬이 push() 후 별도로 실행되는 것이 아니라, 리렌더링이 발생하는 찰나에 데이터가 변경되면 꼬일 수 있다는 것이 핵심이다.  
+자식 컴포넌트 depth가 깊어질수록, 데이터가 최종 컴포넌트에 전달되기 전 정렬이 이루어지면 해당 버그가 발생할 가능성이 높다.  
+
+</details>
+<br>
+
 # 템플릿1
 <details>
 <summary>펼치기/접기</summary>
