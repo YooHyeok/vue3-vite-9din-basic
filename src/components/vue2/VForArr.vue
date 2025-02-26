@@ -14,13 +14,7 @@ export default {
   name: 'VForArr',
   data() {
     return {
-      sampleArray: ['a', 'b', 'c', 'd'],
-      otherArray: [
-        {id: 0, name: 'John'},
-        {id: 1, name: 'Kim'},
-        {id: 2, name: 'Lee'},
-        {id: 3, name: 'Park'}
-      ]
+      sampleArray: ['a', 'b', 'c', 'd']
     }
   }
 }

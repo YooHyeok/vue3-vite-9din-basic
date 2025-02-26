@@ -14,7 +14,7 @@ export default {
   name: 'VShow',
   data() {
     return {
-      isVisable: true,
+      isVisable: false,
       count: 0,
     }
   }
