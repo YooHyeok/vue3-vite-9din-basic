@@ -8,6 +8,7 @@
   <VForArr/>
   <VForObj/>
   <EventHandle/>
+  <Computed/>
 </template>
 
 <script>
@@ -20,6 +21,7 @@ import VShow from './VShow.vue';
 import VForArr from './VForArr.vue';
 import VForObj from './VForObj.vue';
 import EventHandle from './EventHandle.vue';
+import Computed from './Computed.vue';
 export default {
   name: 'Vue2',
   components: {
@@ -32,6 +34,7 @@ export default {
     VForArr,
     VForObj,
     EventHandle,
+    Computed
   }
   
 }
