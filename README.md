@@ -909,6 +909,80 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
 </details>
 <br>
 
+# Data 예제 1) - Computed, Watch, Props
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+  ## Computed
+  <details>
+  <summary>펼치기/접기</summary>
+  <br>
+
+  함수처럼 보이지만 반드시 return 키워드가 있어야한다.  
+  계산된 데이터 형식 자체를 리턴시키기 때문에 모양은 함수이지만 데이터 취급을 한다.  
+  캐싱 기능이 없는 methods는 호출될 때 마다 console 값이 출력이 3회 되었다.  
+  반면, computed는 캐싱 기능이 있기 때문에 methods와 다르게 1회만 출력된다.
+  동일한 로직을 한번 동작하면, 기능에 대한 데이터 로직 자체를 기억하여 캐싱하고 있다가 computed 기능이 호출될 때마다 캐싱된 로직을 동작시킨다.  
+  따라서 복잡한 로직의 경우 반복적으로 활용될 때 그 로직을 computed 안에서 활용하면 method보다 부하를 줄일 수 있으면서 깔끔한 코드를 완성시킬 수 있다는 장점이 있다.
+
+  - src/components/vue2/Computed.vue
+    ```vue
+    <template>
+      <h1>[Computed]</h1>
+      <div>
+        <h2>{{ text }}</h2>
+        <h2>changeText() 호출 값: {{ changeText() }}</h2>
+        <h2>changeText() 호출 값: {{ changeText() }}</h2>
+        <h2>changeText() 호출 값: {{ changeText() }}</h2>
+        <h2>computedText 호출 값: {{ computedText }}</h2>
+        <h2>computedText 호출 값: {{ computedText }}</h2>
+        <h2>computedText 호출 값: {{ computedText }}</h2>
+      </div>
+    </template>
+    <script>
+    export default {
+      name: 'Computed',
+      data() {
+        return {
+          text: "Computed 테스트 데이터 문구입니다."
+        }
+      },
+      methods: {
+        changeText() {
+          console.log("함수 호출") // 3번 호출
+          console.log(this.text)
+          return this.text.split("").reverse().join("") // 빈칸을 기준으로 분할 - 역순정렬 - 문자열재조합
+        }
+      },
+      computed: { 
+        computedText() {
+          console.log("Computed 기능을 생성 하였습니다. 호출") // 1번 호출
+          console.log(this.text)
+          return this.text.split("").reverse().join("") // 빈칸을 기준으로 분할 - 역순정렬 - 문자열재조합
+        }
+      }
+    }
+    </script>
+    ```
+    위 예제코드에서 methods영역의 changeText와 computedText는 동일한 로직을 수행한다.  
+    methods에 정의된 changeText()가 3번 호출될때 해당 메소드 내 로직이 3번 호출 즉, console.log가 3회 호출되는 반면,   computed에 정의된 computedText()가 3번 호출될때에는 해당 메소드 내 로직이 딱 1번만 호출된다.  
+    그러나 템플릿에는 동일한 값이 출력되는데, 이는 `캐싱`처리가 되었기 때문이다.
+  </details>
+
+  ## 세부
+  <details>
+  <summary>펼치기/접기</summary>
+  <br>
+
+  - 경로/컴포넌트명.vue
+    ```vue
+    ```
+  </details>
+
+</details>
+<br>
+
 # 템플릿1
 <details>
 <summary>펼치기/접기</summary>
