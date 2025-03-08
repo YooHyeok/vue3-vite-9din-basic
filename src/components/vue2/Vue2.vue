@@ -7,7 +7,7 @@
   <VShow/>
   <VForArr/>
   <VForObj/>
-  <VEvent/>
+  <EventHandle/>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ import VIf from './VIf.vue';
 import VShow from './VShow.vue';
 import VForArr from './VForArr.vue';
 import VForObj from './VForObj.vue';
-import VEvent from './VEvent.vue';
+import EventHandle from './EventHandle.vue';
 export default {
   name: 'Vue2',
   components: {
@@ -31,7 +31,7 @@ export default {
     VShow,
     VForArr,
     VForObj,
-    VEvent
+    EventHandle,
   }
   
 }
