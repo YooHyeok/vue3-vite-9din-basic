@@ -970,7 +970,61 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
     그러나 템플릿에는 동일한 값이 출력되는데, 이는 `캐싱`처리가 되었기 때문이다.
   </details>
 
-  ## 세부
+  ## Watch
+  <details>
+  <summary>펼치기/접기</summary>
+  <br>
+
+  ### 실무 활용예시
+  #### 1. 게시판 페이지 변경  
+    게시판 페이지를 변경하거나 선택한 페이지에 대한 리스트만 불러올 경우 `변경된 페이지 번호 혹은 페이지네이션 번호만 감지`하여 해당되는 리스트 데이터만 호출.
+  #### 2. 게시판 게시글 선택  
+    게시글을 클릭한 순간에 게시글이 가지고 있는 고유한 데이터 혹은 특정 값(id 혹은 유니크한 필수값)을 체크하여 상세 페이지 api를 호출할 때, 특정 데이터 값을 감지하고 있다가 동일한 로직 혹은 특정 액션을 호출.
+
+
+  `data변수명: function() {}` 혹은 `data변수명() {}` 형태로 작성한다.  
+  데이터 뿐만 아니라 computed로 계산된 형태의 데이터도 watch로 감지할 수가 있다.  
+  좀더 상세한 옵션으로, 객체 형태의 data 변수일 경우 깊은 감시가 가능하며, 이전값, 변경된값을 매개변수로 확인할수도 있다.
+
+  - 경로/컴포넌트명.vue
+    ```vue
+    <template>
+      <h1>[Watch]</h1>
+      <button @click="changeMessage">{{ message }}</button>
+      {{ watchMessage }}
+    </template>
+    <script>
+    export default {
+      name: 'Watch',
+      data() {
+        return {
+          message: "안녕하세요, Vue.js Watch 기능 테스트 오리지널 문구",
+          watchMessage: ''
+        }
+      },
+      methods: {
+        /* changeMessage() {
+          console.log('함수 호출')
+          this.message = '변경된 메시지'
+        } */
+        changeMessage: function() {
+          console.log('함수 호출')
+          this.message = '변경된 메시지'
+        }
+      },
+      watch: {
+        message(oldValue, newValue) { // 함수처럼 사용하지만 message라는 data 변수를 참조
+            window.alert('message 변수에 담긴 데이터가 변경되었습니다.')
+            this.watchMessage = 'Watch 동작'
+        }
+      }
+    }
+    </script>
+    ```
+  버튼에 클릭하면 data 변수 message를 변경하는 메소드가 동작이 되고 messgage를 감지하는 watch가 동작되어 watch에 정의한 message 함수 로직이 실행된다.
+  </details>
+
+  ## Props
   <details>
   <summary>펼치기/접기</summary>
   <br>
