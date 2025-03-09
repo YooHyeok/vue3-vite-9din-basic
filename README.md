@@ -601,7 +601,7 @@ key와 value 모두 변수로 구성하여 동적으로 제어할 수 있다.
 </details>
 <br>
 
-# UI 예제2) v-if / v-else-if / v-else
+# UI 예제2) v-if / v-else-if / v-else / v-for
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -909,7 +909,7 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
 </details>
 <br>
 
-# Data 예제 1) - Computed, Watch, Props
+# Data 예제 1) - Computed, Watch
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -1024,7 +1024,117 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
   버튼에 클릭하면 data 변수 message를 변경하는 메소드가 동작이 되고 messgage를 감지하는 watch가 동작되어 watch에 정의한 message 함수 로직이 실행된다.
   </details>
 
+  
+</details>
+<br>
+
+# Data 예제 2) - Props, Emits, v-model
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
   ## Props
+  <details>
+  <summary>펼치기/접기</summary>
+  <br>
+
+  Props란 상위 컴포넌트 즉, 부모 컴포넌트에서 선언한 데이터를 하위 컴포넌트인 자식 컴포넌트에서 활용할 수 있도록 전달함으로써 그 값을 하위컴포넌트에서 부모컴포넌트에서 선언된 데이터를 참조할 수 있도록 하는 편리한 기능이다.  
+  원칙적으로 readOnly 즉, 변경은 불가능하고 조회만 가능하도록 설계되어 있다.  
+  Options API의 경우 props 객체를 선언하여 그 안에 prop받은 데이터의 타입을 설정해 주고, Composition API의 경우 defineProps()라는 내장함수를 사용한다.
+
+  ### 자식 컴포넌트 등록
+  Props를 사용하기 위해 기본적으로 자식 컴포넌트가 필요하다.대
+  자식 컴포넌트는 부모 컴포넌트의 template 영역에 선언해야한다.
+  부모 컴포넌트에 자식 컴포넌트를 import한 뒤, 부모 컴포넌트의 components 속성에 자식 컴포넌트를 등록하고 template 영역에 선언하여 사용한다.  
+  예제코드는 아래와 같다.
+  - src/components/vue2/props&emits/Child.vue
+    ```vue
+    <template>
+    </template>
+    <script>
+    export default {
+      name: 'Child',
+      data() {
+        return {}
+      }
+    }
+    </script>
+    ```
+  - src/components/vue2/props&emits/Parent.vue
+    ```vue
+    <template>
+      <Child />
+    </template>
+    <script>
+    import Child from './Child.vue'
+    export default {
+      name: 'Parent',
+      data() {
+        return {}
+      }
+    }
+    </script>
+    ```
+
+    ### 부모 컴포넌트 구현
+    자식 컴포넌트에 v-bind 디렉티브를 활용하여 부모컴포넌트의 data 변수를 `v-bind:prop명="data변수"` 형태로 바인딩한다.  
+    - src/components/vue2/props&emits/Parent.vue
+    ```vue
+    <template>
+      <h1>[Props & Emits]</h1>
+      <child 
+        v-bind:sendProps1="title"
+        v-bind:sendProps2="createAt"
+        :sendProps3="obj"
+      />
+    </template>
+    <script>
+    import Child from './Child.vue';
+    export default {
+      name: 'Parent',
+      components: {
+        Child
+      },
+      data() {
+        return {
+          title: "부모 컴포넌트에서 선언된 데이터 입니다.",
+          createAt: 2025,
+          obj: {
+            id: 2025,
+            name: 'yooHyeok'
+          }
+        }
+      }
+    }
+    </script>
+    ```
+    ### 자식 컴포넌트 구현
+    부모 컴포넌트에서 props 속성에 부모컴포넌트로 부터 바인딩된 `props명:타입` 으로 등록하여 사용한다.
+    - src/components/vue2/props&emits/Child.vue
+    ```vue
+    <template>
+      <div>{{ sendProps1 }}</div>
+      <div>{{ sendProps2 }}</div>
+      <div>{{ sendProps3.id }}</div>
+      <div>{{ sendProps3.name }}</div>
+    </template>
+    <script>
+    export default {
+      props: {
+        sendProps1: String,
+        sendProps2: Number,
+        sendProps3: Object,
+      },
+      name: 'Child',
+      data() {
+        return {}
+      }
+    }
+    </script>
+    ```
+  </details>
+
+  ## 세부
   <details>
   <summary>펼치기/접기</summary>
   <br>
@@ -1033,8 +1143,8 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
     ```vue
     ```
   </details>
+
 </details>
-<br>
 
 # 템플릿1
 <details>
