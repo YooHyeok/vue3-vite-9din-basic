@@ -1,5 +1,5 @@
 <template>
-  <h1>[Computed]</h1>
+  <h1>[Vue.js Computed]</h1>
   <div>
     <h2>{{ text }}</h2>
     <h2>changeText() 호출 값: {{ changeText() }}</h2>

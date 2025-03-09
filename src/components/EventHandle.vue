@@ -1,5 +1,5 @@
 <template>
-  <h1>[이벤트 핸들링]</h1>
+  <h1>[Vue.js 이벤트 핸들링]</h1>
   <div>
     <h2>인라인 핸들러</h2>
     <button v-on:click="count++">클릭</button>

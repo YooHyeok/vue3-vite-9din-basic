@@ -1,7 +1,8 @@
 <template>
+  <h1>[v-html]</h1>
   <div>{{ rawHtml }}</div>
   <div>{{ rawHtml2 }}</div>
-  <h1 v-html="rawHtml2"></h1>
+  <h2 v-html="rawHtml2"></h2>
 </template>
 <script>
 export default {

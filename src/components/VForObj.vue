@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <div>Vue.JS v-for directive</div> 
+    <h1>[Vue.JS v-for directive]</h1> 
     <li v-for="(item, idx) in objectArray" :key="idx">
       <span v-for="(value, key) in item" :key="key" > {{ key }} : {{ value }}</span>
     </li>

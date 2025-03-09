@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <div>Vue.JS v-for directive</div>  
+    <h1>[Vue.JS v-for directive]</h1>  
     <!-- <li>{{ sampleArray[0] }}</li>
     <li>{{ sampleArray[1] }}</li>
     <li>{{ sampleArray[2] }}</li>

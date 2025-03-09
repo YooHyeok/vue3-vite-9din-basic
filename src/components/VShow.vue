@@ -1,5 +1,6 @@
 <template>
-  <div>Vue.JS v-show directive
+  <div>
+    <h1>[Vue.JS v-show directive]</h1>
     <p>count {{ count }}</p>
     <div class="red" v-show="isVisable"></div> <!-- [비활성] style="display: none;" 적용. -->
     <div class="blue" v-show="!isVisable"></div> <!-- [활성] -->

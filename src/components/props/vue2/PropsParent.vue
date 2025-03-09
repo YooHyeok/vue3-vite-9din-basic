@@ -1,5 +1,5 @@
 <template>
-  <h1>[Props & Emits]</h1>
+  <h1>[Vue.js Props]</h1>
   <child 
     v-bind:sendProps1="title"
     v-bind:sendProps2="createAt"

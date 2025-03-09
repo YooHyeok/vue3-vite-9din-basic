@@ -1,6 +1,6 @@
 <template>
-  <div>{{ count }}</div>
   <h1>[Vue.js 라이프사이클 테스트]</h1>
+  <div>{{ count }}</div>
 </template>
 
 <script>

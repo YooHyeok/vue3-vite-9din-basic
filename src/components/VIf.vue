@@ -1,5 +1,6 @@
 <template>
-  <div>Vue.JS v-if directive
+  <div>
+    <h1>[Vue.JS v-if directive]</h1>
     <p>count {{ count }}</p>
     <div class="red" v-if="isVisable"></div>
     <div class="blue" v-if="isVisable == true"></div>

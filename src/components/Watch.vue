@@ -1,5 +1,5 @@
 <template>
-  <h1>[Watch]</h1>
+  <h1>[Vue.js Watch]</h1>
   <button @click="changeMessage">{{ message }}</button>
   {{ watchMessage }}
 </template>
