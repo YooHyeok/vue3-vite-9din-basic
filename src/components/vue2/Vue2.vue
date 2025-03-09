@@ -10,6 +10,7 @@
   <EventHandle/>
   <Computed/>
   <Watch/>
+  <Parent/>
 </template>
 
 <script>
@@ -24,6 +25,7 @@ import VForObj from './VForObj.vue';
 import EventHandle from './EventHandle.vue';
 import Computed from './Computed.vue';
 import Watch from './Watch.vue';
+import Parent from './props&emits/Parent.vue';
 export default {
   name: 'Vue2',
   components: {
@@ -37,7 +39,8 @@ export default {
     VForObj,
     EventHandle,
     Computed,
-    Watch
+    Watch,
+    Parent
   }
   
 }
