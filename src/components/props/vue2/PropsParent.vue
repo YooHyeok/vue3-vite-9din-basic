@@ -9,7 +9,7 @@
 <script>
 import Child from './Child.vue';
 export default {
-  name: 'Parent',
+  name: 'PropsParent',
   components: {
     Child
   },
