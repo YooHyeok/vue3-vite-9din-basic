@@ -477,7 +477,7 @@ UI와 관련된 디렉티브로는 선언적 렌더링, 클래스와 스타일 �
 </details>
 <br>
 
-# User Interface 예제1
+# UI 예제1) 보간법 / V-Html / 바인딩(Class/Style)
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -601,7 +601,7 @@ key와 value 모두 변수로 구성하여 동적으로 제어할 수 있다.
 </details>
 <br>
 
-# User Interface 예제2
+# UI 예제2) v-if / v-else-if / v-else
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -1033,7 +1033,6 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
     ```vue
     ```
   </details>
-
 </details>
 <br>
 
