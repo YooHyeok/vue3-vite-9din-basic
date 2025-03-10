@@ -11,6 +11,7 @@
   <Computed/>
   <Watch/>
   <PropsParent/>
+  <EmitsParent/>
 </template>
 
 <script>
@@ -26,6 +27,7 @@ import EventHandle from './components/EventHandle.vue';
 import Computed from './components/Computed.vue';
 import Watch from './components/Watch.vue';
 import PropsParent from './components/props/vue2/PropsParent.vue';
+import EmitsParent from './components/emits/vue2/EmitsParent.vue';
 export default {
   name: 'App',
   components: {
@@ -40,7 +42,8 @@ export default {
     EventHandle,
     Computed,
     Watch,
-    PropsParent
+    PropsParent,
+    EmitsParent
   }
   
 }
