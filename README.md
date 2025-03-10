@@ -1134,14 +1134,64 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
     ```
   </details>
 
-  ## 세부
+  ## Emits
   <details>
   <summary>펼치기/접기</summary>
   <br>
 
-  - 경로/컴포넌트명.vue
-    ```vue
-    ```
+    자식 컴포넌트에서 `this.$emit('emit명', 전달할값)` 형태로 호출한다.  
+    부모 컴포넌트에서 emit을 적용할 자식 컴포넌트에 이벤트 핸들러를 등록하는 형태로 `@emit명="메소드명"` 과 같이 등록해준다.  
+    이때 emit명은 앞서 자식컴포넌트에서 emit을 호출할때 사용되는 key가 된다.  
+    등록한 메소드에는 매개변수를 받을 수 있게 되는데 해당 매개변수는 자식 컴포넌트에서 emit명으로 등록한 emit을 호출할 때 두번째 인자로 넘겨주는 값이다.  
+
+    ### 부모 컴포넌트 구현
+      자식 컴포넌트에 v-bind 디렉티브를 활용하여 부모컴포넌트의 data 변수를 `v-bind:prop명="data변수"` 형태로 바인딩한다.  
+      - src/components/vue2/props&emits/Parent.vue
+      ```vue
+      <template>
+        <h1>[Vue.js Emits]</h1>
+        <Child 
+          @send-event="preventEvent" 
+        /> <!-- @emit명="메소드" -->
+      </template>
+      <script>
+      import Child from './Child.vue';
+      export default {
+        name: 'EmitsParent',
+        components: {
+          Child
+        },
+        methods: {
+          preventEvent(event) { // event에서 data를 받는다.
+            console.log(event)
+          }
+        }
+      }
+      </script>
+      ```
+    ### 자식 컴포넌트 구현
+      - src/components/vue2/props&emits/Child.vue
+      ```vue
+      <template>
+        <button @click="sendEvent">자식 컴포넌트 버튼 - 콘솔출력</button>
+      </template>
+      <script>
+      export default {
+        name: 'Child',
+        data() {
+          return {
+            data: "자식 컴포넌트에서 선언된 데이터"
+          }
+        },
+        methods: {
+          sendEvent() {
+            /* emit호출 - 1번째 매개변수: 부모컴포넌트의 emit 이벤트명 / 2번째 매개변수: 전달할 값 */
+            this.$emit('send-event', this.data)
+          }
+        }
+      }
+      </script>
+      ```   
   </details>
 
 </details>
