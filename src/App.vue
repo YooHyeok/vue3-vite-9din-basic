@@ -12,6 +12,7 @@
   <Watch/>
   <PropsParent/>
   <EmitsParent/>
+  <VModel/>
 </template>
 
 <script>
@@ -28,6 +29,7 @@ import Computed from './components/Computed.vue';
 import Watch from './components/Watch.vue';
 import PropsParent from './components/props/vue2/PropsParent.vue';
 import EmitsParent from './components/emits/vue2/EmitsParent.vue';
+import VModel from './components/VModel.vue';
 export default {
   name: 'App',
   components: {
@@ -43,7 +45,8 @@ export default {
     Computed,
     Watch,
     PropsParent,
-    EmitsParent
+    EmitsParent,
+    VModel
   }
   
 }
