@@ -1196,6 +1196,68 @@ input 태그의 input value 값과 연관지어 많이 사용한다.
 
 </details>
 
+# v-model
+<details>
+<summary>펼치기/접기</summary>
+<br>
+v-model을 사용하면 양방향 데이터 바인딩이 가능하다.  
+데이터 바인딩이란, 두 데이터 혹은 정보의 소스를 일치시키는 기법으로 화면에 보이는 데이터와 브라우저 메모리에 있는 데이터를 일치시키는 것을 말한다.  
+따라서 양방향 데이터 바인딩은 컨트롤러(Controller) 즉, 자바스크립트 변수에 담긴 데이터와 뷰(view) 즉, HTML에 입력한 데이터가 일치되는 현상을 일컫는다.  
+풀어 해석하자면, HTML에 입력한 value 값이 입력되는 즉시 데이터의 변경을 감지하여 데이터가 변경되는 시점에 DOM 객체에 렌더링을 해주거나 페이지 내에서 모델의 변경을 감지하여 자바스크립트 실행부에서 변경을 한다.  
+따라서 입력된 값이나 변경된 값에 따라 내용이 바로 바뀌기 때문에 바로바로 갱신되어 보이는 현상을 볼 수 있다.  
+Vue.js 기준으로 해석하면 Props와 Emits가 동시에 진행된다고 이해하면 된다.  
+따라서 보통 v-model은 inputValue의 값과 연관지어 많이 사용한다.  
+- src/components/v-model.vue
+  ```vue
+  <template>
+    <h1>[Vue.js v-model]</h1>
+    <div>
+      <input type="text" v-model="inputValue1">
+    </div>
+    <div>v-model: {{ inputValue1 }}</div>
+  </template>
+  <script>
+  export default {
+    data() {
+      return {
+        inputValue1: '',
+        inputValue2: ''
+      }
+    }
+  }
+  </script>
+  ```
+text타입의 input 태그에서 v-model에 바인딩 된 data 변수를 template에서 출력할때, 만약 한글을 입력할 경우 한템포 늦게 template에 반영된다.  
+이는 vueJS의 자체적 문제가 아니라 input 태그의 기능상 한글을 입력받고 출력하는데 내부적으로 약간의 임의의 로직이 다른점이 있기 때문에 특정 행동이 끝나야 출력이 완료가 된다.  
+폼 형식에 데이터를 입력하고 api 서버 전송 하는 기능을 예로 들면, 버튼을 클릭하는 등의 (혹은 포커싱 바깥 클릭) 동작이 발생할 때 비로서 최종 입력된 데이터로 반영이 된다.  
+Vue.js에서 한글 관련 이슈에 대한 해결책으로 v-model과 똑같은 기능을 input 이벤트에 직접 바인딩하여 풀어내는 방법을 권장하고 있다.  
+바로 `@input=data변수="$event.value.target"` 형태의 문법이다.  
+해당 문법은 v-model을 직접적으로 풀어서 선언한것과 동일한 방식이다.
+
+- src/components/v-model.vue
+  ```vue
+  <template>
+    <h1>[Vue.js v-model]</h1>
+    <div>
+      <input type="text" @input="inputValue2 = $event.value.target">
+    </div>
+    <div>@input: {{ inputValue2 }}</div>
+  </template>
+  <script>
+  export default {
+    data() {
+      return {
+        inputValue1: '',
+        inputValue2: ''
+      }
+    }
+  }
+  </script>
+  ```
+
+</details>
+<br>
+
 # 템플릿1
 <details>
 <summary>펼치기/접기</summary>
