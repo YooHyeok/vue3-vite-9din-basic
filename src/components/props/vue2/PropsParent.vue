@@ -1,6 +1,6 @@
 <template>
   <h1>[Vue.js Props]</h1>
-  <child 
+  <Child 
     v-bind:sendProps1="title"
     v-bind:sendProps2="createAt"
     :sendProps3="obj"
